@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Centered To-Do List</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+		body{
+		background-image: url('todo.jpg');
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-size: cover;
+		}
+        #todo-container {
+            text-align: center;
+            padding: 30px;
+            background-color: #fef5e7;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        #taskInput {
+            width: 70%;
+            padding: 10px;
+        }
+        #addButton {
+            padding: 10px 20px;
+            background-color: #000000;
+            color: white;
+            cursor: pointer;
+            margin-top: 5%;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-right: 10%;
+            
+        }
+        li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .task-text {
+            flex-grow: 5;
+        }
+        .delete-button {
+            background-color: #ff3333;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="todo-container">
+        <h1>To-Do List</h1>
+        <input type="text" id="taskInput" placeholder="Enter a new task">
+        <button id="addButton">Add</button>
+        <ul id="taskList">
+        </ul>
+    </div>
+
+    <script>
+        // Get references to HTML elements
+        const taskInput = document.getElementById("taskInput");
+        const addButton = document.getElementById("addButton");
+        const taskList = document.getElementById("taskList");
+
+        // Function to add a new task
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            if (taskText !== "") {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <span class="task-text">${taskText}</span>
+                    <button class="delete-button">Delete</button>
+                `;
+                taskList.appendChild(li);
+                taskInput.value = "";
+
+                // Add an event listener to delete the task
+                const deleteButton = li.querySelector(".delete-button");
+                deleteButton.addEventListener("click", () => {
+                    taskList.removeChild(li);
+                });
+            }
+        }
+
+        // Event listener for adding tasks
+        addButton.addEventListener("click", addTask);
+        taskInput.addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                addTask();
+            }
+        });
+    </script>
+</body>
+</html>
